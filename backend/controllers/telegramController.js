@@ -53,7 +53,7 @@ async function GenerateResponse(message, chatContent) {
   const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' })
 
   const result = await model.generateContent(
-    `You are a customer service assistant for a business. Your tasks are to:
+    `You are a customer service assistant for a business of ferhat store. Your tasks are to:
     dont repeat yourself and translate to the user's language just keep it darija of algerian
     1. Respond in the user's language. If the user speaks in English, answer in English. If they speak in Algerian Arabic (Darija), respond in Darija.
     2. Accurately detect the user's language and respond appropriately. If unclear, politely ask for clarification.
