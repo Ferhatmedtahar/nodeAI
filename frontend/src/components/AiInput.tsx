@@ -4,7 +4,7 @@ import Response from "./Response";
 export default function AiInput() {
   const [response, setResponse] = useState("");
   const [loading, setLoading] = useState(false);
-  const ref = useRef<HTMLInputElement | null>(null);
+  const ref = useRef<HTMLTextAreaElement | null>(null);
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const input = ref.current;
@@ -12,7 +12,7 @@ export default function AiInput() {
     if (input) {
       const question = input.value;
       input.value = ""; // Safely access the ref's value
-      const url = new URL("http://localhost:5000/ai");
+      const url = new URL("http://localhost:8000/ai");
 
       url.searchParams.append("question", question);
       setLoading(true);
@@ -46,11 +46,12 @@ export default function AiInput() {
         <label htmlFor="inputai" className="text-2xl">
           Ask here :
         </label>
-        <input
+        <textarea
           ref={ref}
-          type="text"
+          rows={4}
+          cols={50}
           id="inputai"
-          className="text-black  rounded-md p-4 border border-blue-400 max-w-2xl focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+          className="text-black  rounded-md p-4 border border-blue-400 max-w-2xl  focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
         />
         <button
           type="submit"
@@ -63,8 +64,20 @@ export default function AiInput() {
         <p className="text-2xl font-mono text-center bg-slate-500 p-4 rounded-md">
           Loading...
         </p>
-      ) : (
+      ) : response ? (
         <Response response={response} />
+      ) : (
+        <p className="text-sm text-gray-500 font-mono absolute bottom-4 left-4">
+          check out how to setup Telegram Bot{" "}
+          <a
+            className="text-blue-500 underline underline-offset-2"
+            href="https://github.com/Ferhatmedtahar/nodeAI"
+            tabIndex={-1}
+            target="_blank"
+          >
+            here
+          </a>
+        </p>
       )}
     </div>
   );

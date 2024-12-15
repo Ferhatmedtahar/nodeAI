@@ -17,20 +17,3 @@ app.use('/', router)
 app.listen(PORT, () => {
   console.log(`app listening on port ${PORT}`)
 })
-
-// import OpenAI from 'openai'
-
-// const openai = new OpenAI()
-// const completion = await openai.chat.completions.create({
-//   model: 'gpt-3.5-turbo', // Free model
-//   messages: [
-//     {
-//       role: 'system',
-//       content:
-//         'You are an AI assistant, answer my questions to the best of your ability.',
-//     },
-//   ],
-// })
-
-// console.log(completion.choices[0].message.content)
-//
