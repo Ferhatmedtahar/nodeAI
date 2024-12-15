@@ -1,8 +1,11 @@
+import { GoogleGenerativeAI } from '@google/generative-ai'
 import TelegramBot from 'node-telegram-bot-api'
+import { orders } from '../data/Orders.js'
+import { products } from '../data/Products.js'
 import { catchAsync } from '../utils/catchAsync.js'
 
 export const sendMessageTelegram = catchAsync(async (req, res, next) => {
-  const token = '7564724974:AAFhfgoyI3nO1s8AvULHKsM3geiTtmQtPhY'
+  const token = process.env.BOT_TOKEN
   const bot = new TelegramBot(token)
   // const bot = new TelegramBot(token, { polling: true })
 
@@ -26,24 +29,57 @@ export const recieveMessageTelegram = catchAsync(async (req, res, next) => {
 
   // Check if the update contains a message
   if (update.message) {
-    const message = update.message.text
+    console.log(update)
+    const receivedMessage = update.message.text
     const chatId = update.message.chat.id
-    console.log(`New message from chat ${chatId}: ${message}`)
+    const userId = update.message.from.id
+    console.log(`New message from chat ${chatId}: ${receivedMessage}`)
+
+    const message = await GenerateResponse(receivedMessage)
+    const token = process.env.BOT_TOKEN
+    const bot = new TelegramBot(token)
+    bot.sendMessage(userId, message)
+    res.status(200).json({ message: 'Message sent successfully' })
+  } else {
+    res.status(500).json({ message: 'Message not sent' })
   }
-  const token = '7564724974:AAFhfgoyI3nO1s8AvULHKsM3geiTtmQtPhY'
-  const bot = new TelegramBot(token)
-  bot.sendMessage(
-    '1871583771',
-    'hello akkadli serivce here : Ferhat , islam , ahmed , omar '
-  )
-
-  res.sendStatus(200)
-  // const update = req.body
-  //// Process incoming message
-  // const chatId = '1482349897'
-  // const messageText = update.message.text
-
-  // // Do something (e.g., respond, save to database)
-  // bot.sendMessage(chatId, 'You said: ' + messageText)
-  // res.status(200).send('bee')
 })
+
+async function GenerateResponse(message) {
+  const genAI = new GoogleGenerativeAI(process.env.GEMENI_API_KEY)
+  const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' })
+
+  const result = await model.generateContent(
+    `You are a multilingual customer service assistant for a business. Your task is to:
+
+1. Detect the user's language based on their message and respond in the same language if possible. If you cannot determine the language, politely ask for clarification and specify the dialect (e.g., "Could you please specify whether you are using Algerian, Moroccan, or Tunisian Arabic?").
+2. Analyze the user's message to understand their intent clearly, especially for North African dialects (Algerian, Moroccan, Tunisian). Use your Natural Language Processing (NLP) capabilities to interpret the meaning accurately.
+3. Respond directly to the user's question or request in a concise and professional tone, using Algerian Arabic (Darija) if the user speaks it. Do not include translations or explanations unless explicitly asked.
+4. If the user asks about business hours, availability, or status, provide a clear response relevant to the question (e.g., "Yes, we are open" or "No, we are closed").
+5. If the user attempts to negotiate or asks for a discount, offer them special promotions or discounts available for bulk purchases. For example, "If you buy two of the **Stylish Backpack**, you can get a 5% discount on the total price." These offers are determined by the seller and can be customized based on the seller’s settings.
+6. Keep your reply short, friendly, and helpful.
+7. If the message is ambiguous or you need more details, politely ask the user to clarify.
+8. Avoid generic or overly verbose responses unless explicitly asked.
+9. Respond in Algerian Arabic (Darija) if the user speaks it if the user uses english then answer in english.
+10. if the user ask about something that is not in the context then answer "I'm sorry, I'm responsible for products and orders only."
+
+Here is the user's message:
+"${message}"
+
+Context for your response:
+Products: ${JSON.stringify(products)}
+Orders: ${JSON.stringify(orders)}
+
+Discount offers available:
+- Any product that accepts discounts will have 10% off if you buy 3 or more.
+- Additional discounts can be applied depending on the seller's settings.
+
+Your response should be:
+- Friendly and conversational in Darija (Algerian Arabic).
+- Accurate and helpful.
+- In the user's language whenever possible.
+- Brief and to the point.
+- Respond in Darija if the user uses Algerian Arabic, without translation.`
+  )
+  return result.response.text()
+}
