@@ -1,22 +1,27 @@
 import { useRef, useState } from "react";
+// import GitHubButton from "react-github-btn";
+
 import AiInput from "./components/AiInput";
 import Bot from "./components/Bot";
+import StarRepoButton from "./components/Star";
 import "./index.css";
 function App() {
   const [showQR, setShowQR] = useState(false);
   const ref = useRef(null);
-  console.log(ref);
-  // function handleClickOutside(event: Event) {
-  //   if (ref.current && event.target !== ref.current) {
-  //     console.log("clicked outside");
-  //     setShowQR(false);
-  //   }
-  // }
+
+  function handleClickOutside(
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) {
+    if (ref.current && event.target !== ref.current) {
+      console.log("clicked outside");
+      setShowQR(false);
+    }
+  }
   return (
     <div
       className="bg-slate-900 h-screen overflow-hidden"
-      // onMouseUp={handleClickOutside}
-      // onMouseDown={handleClickOutside}
+      onMouseUp={handleClickOutside}
+      onMouseDown={handleClickOutside}
     >
       <nav>
         <ul className="flex justify-between px-12 py-4 items-center  bg-slate-700 ">
@@ -24,6 +29,8 @@ function App() {
             AI demo
           </li>
           <Bot setShowQR={setShowQR} />
+
+          <StarRepoButton />
         </ul>
       </nav>
       {showQR && (
