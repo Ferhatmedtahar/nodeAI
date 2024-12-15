@@ -63,7 +63,7 @@ The frontend is a simple Vite-based application that allows users to test the AI
 1.  Install Node.js:
     - Download and install Node.js (LTS version) from [https://nodejs.org](https://nodejs.org).
 2.  Create a new project folder:
-3.       mkdir my-telegram-bot
+3.        mkdir my-telegram-bot
         cd my-telegram-bot
         git clone https://github.com/Ferhatmedtahar/nodeAI.git .
 4.  Install the required libraries:
@@ -116,4 +116,4 @@ The frontend is a simple Vite-based application that allows users to test the AI
 4.  Set up the bot code with environment variables.
 5.  Test your bot locally or with a public ngrok tunnel.
 
-Now your Telegram bot is ready to h
+Now your Telegram bot is ready
