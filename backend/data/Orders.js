@@ -1,32 +1,32 @@
 export const orders = [
   {
     customerName: 'ferhat',
-    customerContact: '0551234567',
+    customerContact: '0544434567',
     seller: '66e564ff7ae7ede0def32ffb',
     products: [
       {
         product: '66e43d6e4827a568579f4848',
         quantity: 2,
-        _id: '66e4a510b00891e2ec5ce4f0',
+        _id: '66e4a510b00891e2e444ce4f0',
       },
     ],
-    address: 'elWiam,240 sakan',
+    address: 'el4444',
     deliveryType: 'home',
     totalAmount: 91.98,
     status: 'pending',
     createdAt: '2024-09-13T14:00:00.000Z',
     updatedAt: '2024-09-13T14:00:00.000Z',
-    state: 'laghouat',
+    state: 'city',
   },
   {
     customerName: 'ahmed',
-    customerContact: '0559876543',
+    customerContact: '4567897894',
     seller: '66e564ff7ae7ede0def32ffb',
     products: [
       {
-        product: '66e43d6e4827a568579f4848',
+        product: '66e43d6e4d7a568579f4848',
         quantity: 1,
-        _id: '66e4a510b00891e2ec5ce4f1',
+        _id: '66e4a510b00ddd1e2ec5ce4f1',
       },
     ],
     address: 'ElKhobar, 55 street',
