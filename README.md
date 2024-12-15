@@ -10,6 +10,7 @@ This project combines a Telegram bot and vite app with the power of Gemini AI to
 - Integration with Gemini AI for natural language processing and intelligent responses.
 - Webhook for handling Telegram updates.
 - A simple frontend built using Vite to send test messages to the AI backend.
+for the data, you can use database, an array of objects was used to simulate the process
 
 ## Project Routes
 
