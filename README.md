@@ -1,5 +1,30 @@
 Telegram Bot and Gemini AI Setup Guide
 
+## Project Overview
+
+This project combines a Telegram bot and vite app with the power of Gemini AI to create an interactive chat experience. you can message the Telegram bot, which uses the Gemini AI API to generate intelligent responses. The bot's backend is built using Node.js, and there are basic front end using Vite for testing and interacting with the AI outside of Telegram.
+
+### Features:
+
+- Interactive Telegram bot for responding to user messages.
+- Integration with Gemini AI for natural language processing and intelligent responses.
+- Webhook for handling Telegram updates.
+- A simple frontend built using Vite to send test messages to the AI backend.
+
+## Project Routes
+
+The project includes the following routes:
+
+- **Telegram Bot Route:**
+  - `/webhook`: Handles incoming Telegram updates sent via the webhook.
+  - `/telegram`: A custom route to send messages to Telegram users from the backend.
+- **Gemini AI Route:**
+  - `/ai`: Handles requests from the frontend or Telegram bot and forwards them to the Gemini AI API to generate a response.
+
+## Frontend (Vite Application)
+
+The frontend is a simple Vite-based application that allows users to test the AI integration outside Telegram. It includes a basic form to input messages and display the AI's responses.
+
 # Telegram Bot and Gemini AI Setup Guide
 
 ## Step 1: Create a Telegram Bot
@@ -38,7 +63,7 @@ Telegram Bot and Gemini AI Setup Guide
 1.  Install Node.js:
     - Download and install Node.js (LTS version) from [https://nodejs.org](https://nodejs.org).
 2.  Create a new project folder:
-3.      mkdir my-telegram-bot
+3.       mkdir my-telegram-bot
         cd my-telegram-bot
         git clone https://github.com/Ferhatmedtahar/nodeAI.git .
 4.  Install the required libraries:
@@ -72,7 +97,7 @@ Telegram Bot and Gemini AI Setup Guide
 ## Step 6: Run the Bot
 
 1.  Start your bot: feel free to adjust the package.json to your needs
-        npm run dev
+    npm run dev
 2.  Open Telegram and send a message to your bot. The bot will respond using Gemini AI.
 
 ## Step 7: Final Security Tips
